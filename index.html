@@ -200,6 +200,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sp-black);color:var(--sp-
       <span class="logo-x">×</span>
       <div class="logo-pill"><div class="logo-dot ip"></div>iProspect · dentsu</div>
       <button onclick="enterEditMode()" style="margin-left:auto;background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.45);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;white-space:nowrap">✏️ Edit</button>
+      <button onclick="clearEdits()" style="background:transparent;border:1px solid rgba(255,0,0,0.3);color:rgba(255,100,100,0.6);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;white-space:nowrap">Reset</button>
     </div>
     <div class="header-title">The <span class="ac">iPro</span> Open 🎾</div>
     <div class="header-sub">Round robin · 6 teams · 15 matches · Semis + Final</div>
@@ -693,6 +694,13 @@ function toggleEditMode(on){
     if(on){el.removeAttribute('readonly');el.style.cursor='';el.style.opacity='';}
     else{el.setAttribute('readonly','');el.style.cursor='default';el.style.opacity='0.6';}
   });
+}
+
+function clearEdits(){
+  if(confirm('Reset all text edits back to default? This cannot be undone.')){
+    localStorage.removeItem('ipro_edits');
+    location.reload();
+  }
 }
 
 function enterEditMode(){
