@@ -579,6 +579,15 @@ body {
 }
 .rule-val .hl { color: var(--sp-green); font-weight: 700; }
 
+/* ── EDITABLE ────────────────────────────────── */
+[contenteditable]{outline:none;border-radius:3px;transition:background 0.15s}
+[contenteditable]:hover{background:rgba(255,255,255,0.05)}
+[contenteditable]:focus{background:rgba(29,185,84,0.10);box-shadow:0 0 0 1px rgba(29,185,84,0.4)}
+.edit-mode-bar{display:none;align-items:center;justify-content:space-between;padding:8px 16px;background:#1DB954;position:sticky;top:0;z-index:100}
+.edit-mode-bar.show{display:flex}
+.edit-mode-bar span{font-size:12px;font-weight:700;color:#121212}
+.edit-mode-bar button{background:#121212;color:#1DB954;border:none;border-radius:var(--radius-sm);padding:5px 14px;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer}
+
 /* ── RESPONSIVE ──────────────────────────────── */
 @media(min-width:700px) {
   .content { padding: 32px 28px 64px; }
@@ -587,6 +596,11 @@ body {
 </style>
 </head>
 <body>
+
+<div class="edit-mode-bar" id="editBar">
+  <span>✏️ Edit mode — tap any text to change it</span>
+  <button onclick="saveEdits()">Save &amp; exit</button>
+</div>
 
 <div class="header">
   <div class="header-inner">
@@ -600,15 +614,15 @@ body {
     <div class="header-title">
       <span class="trophy">🏆</span> The <span class="accent">iPro</span> Open <span class="trophy">🎾</span>
     </div>
-    <div class="header-sub">Round robin · 7 teams · 21 matches · Semis + Final</div>
+    <div class="header-sub" contenteditable="false">Round robin · 7 teams · 21 matches · Semis + Final</div>
 
     <div class="meta-row">
-      <div class="meta-chip"><span class="dot"></span>1:00 – 3:30pm</div>
-      <div class="meta-chip"><span class="dot"></span>Courts 1, 2 &amp; 3</div>
-      <div class="meta-chip"><span class="dot"></span>15 min matches</div>
-      <div class="meta-chip"><span class="dot"></span>First to 3 games</div>
-      <div class="meta-chip"><span class="dot"></span>Win = 3 pts</div>
-      <div class="meta-chip"><span class="dot"></span>Top 4 → Semis</div>
+      <div class="meta-chip"><span class="dot"></span><span contenteditable="false">1:00 – 3:30pm</span></div>
+      <div class="meta-chip"><span class="dot"></span><span contenteditable="false">Courts 1, 2 &amp; 3</span></div>
+      <div class="meta-chip"><span class="dot"></span><span contenteditable="false">15 min matches</span></div>
+      <div class="meta-chip"><span class="dot"></span><span contenteditable="false">First to 3 games</span></div>
+      <div class="meta-chip"><span class="dot"></span><span contenteditable="false">Win = 3 pts</span></div>
+      <div class="meta-chip"><span class="dot"></span><span contenteditable="false">Top 4 → Semis</span></div>
     </div>
 
     <div class="tab-bar">
@@ -640,7 +654,7 @@ body {
     <div class="finals-block">
       <div class="finals-title">Finals Series</div>
       <div class="slot-hdr" style="margin-bottom:10px">
-        <span class="slot-time">2:45pm</span>
+        <span class="slot-time">2:59pm</span>
         <span class="slot-round">Semi Finals — simultaneous</span>
         <div class="slot-line"></div>
       </div>
@@ -663,7 +677,7 @@ body {
         <span class="court-pill c2">Court 2</span>
       </div>
       <div class="slot-hdr" style="margin:16px 0 10px">
-        <span class="slot-time">3:00pm</span>
+        <span class="slot-time">3:16pm</span>
         <span class="slot-round">Grand Final</span>
         <div class="slot-line"></div>
       </div>
@@ -676,7 +690,7 @@ body {
         </div>
         <span class="court-pill c1">Court 1</span>
       </div>
-      <div class="finals-note"><strong>Semi finalists announced</strong> after Match 21 (~2:45pm) · Check the Ladder tab for top 4 · Est. finish 3:17pm</div>
+      <div class="finals-note"><strong>Semi finalists announced</strong> after Match 21 (~2:59pm) · Check the Ladder tab for top 4 · Est. finish 3:31pm</div>
     </div>
   </div>
 
@@ -686,7 +700,7 @@ body {
     <div class="finals-scorer-block">
       <div class="finals-title">Finals Series</div>
       <div class="slot-hdr" style="margin-bottom:10px">
-        <span class="slot-time">2:45pm</span>
+        <span class="slot-time">2:59pm</span>
         <span class="slot-round">Semi Finals</span>
         <div class="slot-line"></div>
       </div>
@@ -721,7 +735,7 @@ body {
         </div>
       </div>
       <div class="slot-hdr" style="margin:20px 0 10px">
-        <span class="slot-time">3:00pm</span>
+        <span class="slot-time">3:16pm</span>
         <span class="slot-round">Grand Final</span>
         <div class="slot-line"></div>
       </div>
@@ -749,50 +763,50 @@ body {
       <div class="tl-item">
         <div class="tl-dot-col"><div class="tl-dot filled"></div></div>
         <div class="tl-body">
-          <div class="tl-time">12:30 – 1:00pm</div>
-          <div class="tl-heading">Arrival &amp; Intro</div>
-          <div class="tl-desc">Welcome to Neutral Bay. Get your racquet warmed up, grab a drink, and meet your fellow competitors. The next Barty &amp; Kyrgios are about to be discovered.</div>
-          <span class="tl-tag green">📍 Neutral Bay</span>
+          <div class="tl-time" contenteditable="false">12:30 – 1:00pm</div>
+          <div class="tl-heading" contenteditable="false">Arrival &amp; Intro</div>
+          <div class="tl-desc" contenteditable="false">Welcome to Neutral Bay. Get your racquet warmed up, grab a drink, and meet your fellow competitors. The next Barty &amp; Kyrgios are about to be discovered.</div>
+          <span class="tl-tag green" contenteditable="false">📍 Neutral Bay</span>
         </div>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot-col"><div class="tl-dot filled"></div></div>
         <div class="tl-body">
-          <div class="tl-time">1:00pm</div>
-          <div class="tl-heading">🎾 The iPro Open Begins</div>
-          <div class="tl-desc">7 teams. 21 round robin matches. Every team plays every other team once — then the top 4 battle it out in the semis and grand final. Food &amp; drinks fuelling you throughout the arvo.</div>
-          <span class="tl-tag green">Round Robin Starts</span>
+          <div class="tl-time" contenteditable="false">1:00pm</div>
+          <div class="tl-heading" contenteditable="false">🎾 The iPro Open Begins</div>
+          <div class="tl-desc" contenteditable="false">7 teams. 21 round robin matches. Every team plays every other team once — then the top 4 battle it out in the semis and grand final. Food &amp; drinks fuelling you throughout the arvo.</div>
+          <span class="tl-tag green" contenteditable="false">Round Robin Starts</span>
         </div>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot-col"><div class="tl-dot blue"></div></div>
         <div class="tl-body">
-          <div class="tl-time blue">2:45pm</div>
-          <div class="tl-heading">Semi Finals</div>
-          <div class="tl-desc">Top 4 teams on the ladder go head to head. 1st vs 4th on Court 1, 2nd vs 3rd on Court 2 — simultaneously.</div>
-          <span class="tl-tag blue">Courts 1 &amp; 2</span>
+          <div class="tl-time blue" contenteditable="false">2:59pm</div>
+          <div class="tl-heading" contenteditable="false">Semi Finals</div>
+          <div class="tl-desc" contenteditable="false">Top 4 teams on the ladder go head to head. 1st vs 4th on Court 1, 2nd vs 3rd on Court 2 — simultaneously.</div>
+          <span class="tl-tag blue" contenteditable="false">Courts 1 &amp; 2</span>
         </div>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot-col"><div class="tl-dot gold filled"></div></div>
         <div class="tl-body">
-          <div class="tl-time gold">3:00pm</div>
-          <div class="tl-heading">🏆 Grand Final</div>
-          <div class="tl-desc">The two semi final winners clash for iPro Open glory. Champions crowned by ~3:31pm.</div>
-          <span class="tl-tag gold">Court 1 · The Decider</span>
+          <div class="tl-time gold" contenteditable="false">3:16pm</div>
+          <div class="tl-heading" contenteditable="false">🏆 Grand Final</div>
+          <div class="tl-desc" contenteditable="false">The two semi final winners clash for iPro Open glory. Champions crowned by ~3:17pm.</div>
+          <span class="tl-tag gold" contenteditable="false">Court 1 · The Decider</span>
         </div>
       </div>
 
       <div class="tl-item">
         <div class="tl-dot-col"><div class="tl-dot"></div></div>
         <div class="tl-body">
-          <div class="tl-time">3:30pm</div>
-          <div class="tl-heading">Court Hire Finishes</div>
-          <div class="tl-desc">Racquets down. Pack up and head to the Club to celebrate — or commiserate — the comp. The real tournament starts now.</div>
-          <span class="tl-tag blue">🍻 On to the Club</span>
+          <div class="tl-time" contenteditable="false">3:30pm</div>
+          <div class="tl-heading" contenteditable="false">Court Hire Finishes</div>
+          <div class="tl-desc" contenteditable="false">Racquets down. Pack up and head to the Club to celebrate — or commiserate — the comp. The real tournament starts now.</div>
+          <span class="tl-tag blue" contenteditable="false">🍻 On to the Club</span>
         </div>
       </div>
 
@@ -801,14 +815,14 @@ body {
     <div class="info-rules">
       <div class="rules-title">Match Rules</div>
       <div class="rules-grid">
-        <div class="rule-card"><div class="rule-label">Format</div><div class="rule-val">First to <span class="hl">3 games</span> wins</div></div>
-        <div class="rule-card"><div class="rule-label">Scoring</div><div class="rule-val">15 · 30 · 40 · Game</div></div>
-        <div class="rule-card"><div class="rule-label">Deuce</div><div class="rule-val">No-ad — <span class="hl">one deciding point</span></div></div>
-        <div class="rule-card"><div class="rule-label">Record as</div><div class="rule-val">Games won e.g. <span class="hl">3–1</span>, <span class="hl">3–2</span></div></div>
-        <div class="rule-card"><div class="rule-label">Win</div><div class="rule-val"><span class="hl">3 points</span></div></div>
-        <div class="rule-card"><div class="rule-label">Loss</div><div class="rule-val">0 points</div></div>
-        <div class="rule-card"><div class="rule-label">If running long</div><div class="rule-val">Finish the game, record score</div></div>
-        <div class="rule-card"><div class="rule-label">Tiebreakers</div><div class="rule-val">Pts → GD → GF → H2H</div></div>
+        <div class="rule-card"><div class="rule-label">Format</div><div class="rule-val" contenteditable="false">First to <span class="hl">3 games</span> wins</div></div>
+        <div class="rule-card"><div class="rule-label">Scoring</div><div class="rule-val" contenteditable="false">15 · 30 · 40 · Game</div></div>
+        <div class="rule-card"><div class="rule-label">Deuce</div><div class="rule-val" contenteditable="false">No-ad — <span class="hl">one deciding point</span></div></div>
+        <div class="rule-card"><div class="rule-label">Record as</div><div class="rule-val" contenteditable="false">Games won e.g. <span class="hl">3–1</span>, <span class="hl">3–2</span></div></div>
+        <div class="rule-card"><div class="rule-label">Win</div><div class="rule-val" contenteditable="false"><span class="hl">3 points</span></div></div>
+        <div class="rule-card"><div class="rule-label">Loss</div><div class="rule-val" contenteditable="false">0 points</div></div>
+        <div class="rule-card"><div class="rule-label">If running long</div><div class="rule-val" contenteditable="false">Finish the game, record score</div></div>
+        <div class="rule-card"><div class="rule-label">Tiebreakers</div><div class="rule-val" contenteditable="false">Pts → GD → GF → H2H</div></div>
       </div>
     </div>
   </div>
@@ -827,6 +841,10 @@ body {
     <div class="tiebreak-info">
       <strong>Tiebreakers:</strong>&nbsp; 1. Points &nbsp;·&nbsp; 2. Game difference (GF − GA) &nbsp;·&nbsp; 3. Games for &nbsp;·&nbsp; 4. Head-to-head
     </div>
+  </div>
+
+  <div style="text-align:center;padding:24px 0 8px">
+    <button onclick="enterEditMode()" style="background:transparent;border:1px solid #535353;color:#535353;padding:8px 20px;border-radius:20px;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase">✏️ Edit page</button>
   </div>
 
 </div>
@@ -848,32 +866,32 @@ const slots=[
     {id:2,a:'Wilson Luthje / Mia "Serve"gler',b:'Double Fault Phil / Hannah Thwaites',court:'c2'},
     {id:3,a:'Seb-ACE-tiano Zanre / Camilla Cuccu',b:'Peter Gock / Abby Brown',court:'c3'},
   ],bye:'Spotify 1 & 2'},
-  {time:'1:15pm',changeover:'2 min changeover',round:'Round 2',matches:[
+  {time:'1:17pm',changeover:'2 min changeover',round:'Round 2',matches:[
     {id:4,a:'Spotify 1 & 2',b:'Double Fault Phil / Hannah Thwaites',court:'c1'},
     {id:5,a:'Faiq Federique / Amelia Laidler',b:'Peter Gock / Abby Brown',court:'c2'},
     {id:6,a:'Wilson Luthje / Mia "Serve"gler',b:'Seb-ACE-tiano Zanre / Camilla Cuccu',court:'c3'},
   ],bye:'Liam Chard / Zoe McGregor'},
-  {time:'1:30pm',changeover:'2 min changeover',round:'Round 3',matches:[
+  {time:'1:34pm',changeover:'2 min changeover',round:'Round 3',matches:[
     {id:7,a:'Liam Chard / Zoe McGregor',b:'Peter Gock / Abby Brown',court:'c1'},
     {id:8,a:'Spotify 1 & 2',b:'Seb-ACE-tiano Zanre / Camilla Cuccu',court:'c2'},
     {id:9,a:'Faiq Federique / Amelia Laidler',b:'Wilson Luthje / Mia "Serve"gler',court:'c3'},
   ],bye:'Double Fault Phil / Hannah Thwaites'},
-  {time:'1:45pm',changeover:'2 min changeover',round:'Round 4',matches:[
+  {time:'1:51pm',changeover:'2 min changeover',round:'Round 4',matches:[
     {id:10,a:'Double Fault Phil / Hannah Thwaites',b:'Seb-ACE-tiano Zanre / Camilla Cuccu',court:'c1'},
     {id:11,a:'Liam Chard / Zoe McGregor',b:'Wilson Luthje / Mia "Serve"gler',court:'c2'},
     {id:12,a:'Spotify 1 & 2',b:'Faiq Federique / Amelia Laidler',court:'c3'},
   ],bye:'Peter Gock / Abby Brown'},
-  {time:'2:00pm',changeover:'2 min changeover',round:'Round 5',matches:[
+  {time:'2:08pm',changeover:'2 min changeover',round:'Round 5',matches:[
     {id:13,a:'Peter Gock / Abby Brown',b:'Wilson Luthje / Mia "Serve"gler',court:'c1'},
     {id:14,a:'Double Fault Phil / Hannah Thwaites',b:'Faiq Federique / Amelia Laidler',court:'c2'},
     {id:15,a:'Liam Chard / Zoe McGregor',b:'Spotify 1 & 2',court:'c3'},
   ],bye:'Seb-ACE-tiano Zanre / Camilla Cuccu'},
-  {time:'2:15pm',changeover:'2 min changeover',round:'Round 6',matches:[
+  {time:'2:25pm',changeover:'2 min changeover',round:'Round 6',matches:[
     {id:16,a:'Seb-ACE-tiano Zanre / Camilla Cuccu',b:'Faiq Federique / Amelia Laidler',court:'c1'},
     {id:17,a:'Peter Gock / Abby Brown',b:'Spotify 1 & 2',court:'c2'},
     {id:18,a:'Double Fault Phil / Hannah Thwaites',b:'Liam Chard / Zoe McGregor',court:'c3'},
   ],bye:'Wilson Luthje / Mia "Serve"gler'},
-  {time:'2:30pm',changeover:'2 min changeover',round:'Round 7',matches:[
+  {time:'2:42pm',changeover:'2 min changeover',round:'Round 7',matches:[
     {id:19,a:'Wilson Luthje / Mia "Serve"gler',b:'Spotify 1 & 2',court:'c1'},
     {id:20,a:'Seb-ACE-tiano Zanre / Camilla Cuccu',b:'Liam Chard / Zoe McGregor',court:'c2'},
     {id:21,a:'Peter Gock / Abby Brown',b:'Double Fault Phil / Hannah Thwaites',court:'c3'},
@@ -1098,7 +1116,17 @@ function renderLadder(){
   });
 }
 
+let scorerUnlocked=false;
+
 function showTab(tab,btn){
+  if(tab==='scorer'&&!scorerUnlocked){
+    const pw=prompt('Enter password to access scoring:');
+    if(pw!=='tennis'){
+      alert('Incorrect password.');
+      return;
+    }
+    scorerUnlocked=true;
+  }
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(tab).classList.add('active');
@@ -1107,10 +1135,45 @@ function showTab(tab,btn){
   if(tab==='ladder')renderLadder();
 }
 
+let editMode=false;
+
+function toggleEditMode(on){
+  editMode=on;
+  document.querySelectorAll('[contenteditable]').forEach(el=>el.contentEditable=on?'true':'false');
+  document.getElementById('editBar').classList.toggle('show',on);
+}
+
+function enterEditMode(){
+  const pw=prompt('Enter password to edit:');
+  if(pw==='tennis') toggleEditMode(true);
+  else if(pw!==null) alert('Incorrect password.');
+}
+
+function saveEdits(){
+  const data={};
+  document.querySelectorAll('[contenteditable]').forEach((el,i)=>{
+    data['edit_'+i]=el.innerHTML;
+  });
+  localStorage.setItem('ipro_edits',JSON.stringify(data));
+  toggleEditMode(false);
+  showSyncStatus('Edits saved','#1DB954');
+  setTimeout(hideSyncStatus,2000);
+}
+
+function restoreEdits(){
+  try{
+    const data=JSON.parse(localStorage.getItem('ipro_edits')||'{}');
+    document.querySelectorAll('[contenteditable]').forEach((el,i)=>{
+      if(data['edit_'+i]!==undefined)el.innerHTML=data['edit_'+i];
+    });
+  }catch(e){}
+}
+
 renderSchedule();
 renderLadder();
 pullScores();
 syncTimer=setInterval(pullScores,15000);
+restoreEdits();
 </script>
 </body>
 </html>
