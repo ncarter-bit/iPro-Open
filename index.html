@@ -936,6 +936,68 @@ function renderScorer(){
   updateFinalistsInScorer();
 }
 
+const SHEET_URL='https://script.google.com/macros/s/AKfycbyzBqIW_ziG_CeiNVynvqbW7pXV5XlGcQlzFR0HKVYXp04oY9foPo-iy11UKE-H7f8e/exec';
+let saveTimer=null;
+let syncTimer=null;
+
+function showSyncStatus(msg,color){
+  let el=document.getElementById('syncStatus');
+  if(!el){
+    el=document.createElement('div');
+    el.id='syncStatus';
+    el.style.cssText='position:fixed;bottom:16px;right:16px;background:#282828;color:#B3B3B3;font-size:11px;padding:6px 12px;border-radius:20px;border:1px solid #535353;z-index:9999;font-family:sans-serif;transition:opacity 0.3s';
+    document.body.appendChild(el);
+  }
+  el.textContent=msg;
+  el.style.color=color||'#B3B3B3';
+  el.style.opacity='1';
+}
+
+function hideSyncStatus(){
+  const el=document.getElementById('syncStatus');
+  if(el)el.style.opacity='0';
+}
+
+async function pushScore(id){
+  const s=scores[id];
+  if(!s||s.ga===''||s.gb==='')return;
+  showSyncStatus('Saving...','#B3B3B3');
+  try{
+    await fetch(SHEET_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({matchId:id,ga:s.ga,gb:s.gb})
+    });
+    showSyncStatus('Saved','#1DB954');
+    setTimeout(hideSyncStatus,2000);
+  }catch(e){
+    showSyncStatus('Save failed — check connection','#ff4444');
+  }
+}
+
+async function pullScores(){
+  try{
+    const res=await fetch(SHEET_URL+'?t='+Date.now());
+    const data=await res.json();
+    let changed=false;
+    Object.entries(data).forEach(([id,sc])=>{
+      const m=slots.flatMap(s=>s.matches).find(m=>m.id==id);
+      if(!m)return;
+      const prev=scores[id];
+      if(!prev||prev.ga!=sc.ga||prev.gb!=sc.gb){
+        scores[id]={a:m.a,b:m.b,ga:String(sc.ga),gb:String(sc.gb)};
+        changed=true;
+      }
+    });
+    if(changed){
+      renderLadder();
+      updateFinalistsInScorer();
+      Object.keys(scores).forEach(id=>refreshWinner(parseInt(id)));
+    }
+  }catch(e){}
+}
+
 function onScore(id,side,val){
   const m=slots.flatMap(s=>s.matches).find(m=>m.id===id);
   if(!m)return;
@@ -944,6 +1006,8 @@ function onScore(id,side,val){
   refreshWinner(id);
   renderLadder();
   updateFinalistsInScorer();
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>pushScore(id),800);
 }
 
 function refreshWinner(id){
@@ -1045,6 +1109,8 @@ function showTab(tab,btn){
 
 renderSchedule();
 renderLadder();
+pullScores();
+syncTimer=setInterval(pullScores,15000);
 </script>
 </body>
 </html>
