@@ -241,7 +241,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--sp-black);color:var(--sp-
       </div>
       <div style="background:var(--sp-card);border-radius:var(--radius-md);padding:12px 14px;display:flex;align-items:center;gap:12px">
         <div style="width:28px;height:28px;border-radius:50%;background:rgba(29,185,84,0.15);border:1px solid rgba(29,185,84,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--sp-green);flex-shrink:0">3</div>
-        <div style="font-size:13px;font-weight:500;color:#fff">Nick Carter &amp; Seb-ACE-tiano Zanre</div>
+        <div style="font-size:13px;font-weight:500;color:#fff">Nick Carter &amp; Ashley Maroun</div>
       </div>
       <div style="background:var(--sp-card);border-radius:var(--radius-md);padding:12px 14px;display:flex;align-items:center;gap:12px">
         <div style="width:28px;height:28px;border-radius:50%;background:rgba(29,185,84,0.15);border:1px solid rgba(29,185,84,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--sp-green);flex-shrink:0">4</div>
@@ -249,11 +249,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--sp-black);color:var(--sp-
       </div>
       <div style="background:var(--sp-card);border-radius:var(--radius-md);padding:12px 14px;display:flex;align-items:center;gap:12px">
         <div style="width:28px;height:28px;border-radius:50%;background:rgba(29,185,84,0.15);border:1px solid rgba(29,185,84,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--sp-green);flex-shrink:0">5</div>
-        <div style="font-size:13px;font-weight:500;color:#fff">Double Fault Phil &amp; Ash M</div>
+        <div style="font-size:13px;font-weight:500;color:#fff">Double Fault Phil &amp; Nathan Loader</div>
       </div>
       <div style="background:var(--sp-card);border-radius:var(--radius-md);padding:12px 14px;display:flex;align-items:center;gap:12px">
         <div style="width:28px;height:28px;border-radius:50%;background:rgba(29,185,84,0.15);border:1px solid rgba(29,185,84,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--sp-green);flex-shrink:0">6</div>
-        <div style="font-size:13px;font-weight:500;color:#fff">Nathan Loader &amp; Zoe McGregor</div>
+        <div style="font-size:13px;font-weight:500;color:#fff">Seb-ACE-tiano Zanre &amp; Zoe McGregor</div>
       </div>
 
       <div style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px">
@@ -449,33 +449,33 @@ let saveTimer=null;
 let syncTimer=null;
 let editMode=false;
 
-const allTeams=['Faiq / Amelia','Wilson / Mia','Nick / Seb','Peter / Abby','Phil / Ash','Nathan / Zoe'];
+const allTeams=['Faiq / Amelia','Wilson / Mia','Nick / Ash','Peter / Abby','Phil / Nathan','Seb / Zoe'];
 
 const slots=[
   {time:'1:00pm',changeover:'5 min changeover',round:'Round 1',matches:[
-    {id:1,a:'Faiq / Amelia',b:'Nathan / Zoe',court:'c1'},
-    {id:2,a:'Wilson / Mia',b:'Phil / Ash',court:'c2'},
-    {id:3,a:'Nick / Seb',b:'Peter / Abby',court:'c3'},
+    {id:1,a:'Faiq / Amelia',b:'Seb / Zoe',court:'c1'},
+    {id:2,a:'Wilson / Mia',b:'Phil / Nathan',court:'c2'},
+    {id:3,a:'Nick / Ash',b:'Peter / Abby',court:'c3'},
   ]},
   {time:'1:20pm',changeover:'5 min changeover',round:'Round 2',matches:[
-    {id:4,a:'Faiq / Amelia',b:'Phil / Ash',court:'c1'},
-    {id:5,a:'Nathan / Zoe',b:'Peter / Abby',court:'c2'},
-    {id:6,a:'Wilson / Mia',b:'Nick / Seb',court:'c3'},
+    {id:4,a:'Faiq / Amelia',b:'Phil / Nathan',court:'c1'},
+    {id:5,a:'Seb / Zoe',b:'Peter / Abby',court:'c2'},
+    {id:6,a:'Wilson / Mia',b:'Nick / Ash',court:'c3'},
   ]},
   {time:'1:40pm',changeover:'☕ 15 min break after this round',round:'Round 3',matches:[
     {id:7,a:'Faiq / Amelia',b:'Peter / Abby',court:'c1'},
-    {id:8,a:'Phil / Ash',b:'Nick / Seb',court:'c2'},
-    {id:9,a:'Nathan / Zoe',b:'Wilson / Mia',court:'c3'},
+    {id:8,a:'Phil / Nathan',b:'Nick / Ash',court:'c2'},
+    {id:9,a:'Seb / Zoe',b:'Wilson / Mia',court:'c3'},
   ]},
   {time:'2:15pm',changeover:'5 min changeover',round:'Round 4',matches:[
-    {id:10,a:'Faiq / Amelia',b:'Nick / Seb',court:'c1'},
+    {id:10,a:'Faiq / Amelia',b:'Nick / Ash',court:'c1'},
     {id:11,a:'Peter / Abby',b:'Wilson / Mia',court:'c2'},
-    {id:12,a:'Phil / Ash',b:'Nathan / Zoe',court:'c3'},
+    {id:12,a:'Phil / Nathan',b:'Seb / Zoe',court:'c3'},
   ]},
   {time:'2:35pm',changeover:'5 min buffer before semis',round:'Round 5',matches:[
     {id:13,a:'Faiq / Amelia',b:'Wilson / Mia',court:'c1'},
-    {id:14,a:'Nick / Seb',b:'Nathan / Zoe',court:'c2'},
-    {id:15,a:'Peter / Abby',b:'Phil / Ash',court:'c3'},
+    {id:14,a:'Nick / Ash',b:'Seb / Zoe',court:'c2'},
+    {id:15,a:'Peter / Abby',b:'Phil / Nathan',court:'c3'},
   ]},
 ];
 
